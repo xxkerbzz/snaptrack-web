@@ -65,8 +65,7 @@ export const metadata: Metadata = {
     canonical: SITE_CONFIG.url,
   },
   verification: {
-    google: "your-google-verification-code",
-    yandex: "your-yandex-verification-code",
+    google: "0O86oBiQ5gnKWqCTxq2wa8kkeByLwtXaBmTmB96oLgU",
   },
   icons: {
     icon: "/favicon.ico",
