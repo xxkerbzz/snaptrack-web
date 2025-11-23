@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+// Dynamic sitemap generator - automatically uses the correct domain based on request
+// This ensures sitemap URLs match the Search Console property domain
 // Define all sitemap paths (without domain)
 const sitemapPaths = [
   { path: '/', lastmod: '2025-11-23', changefreq: 'daily', priority: '1.0' },
