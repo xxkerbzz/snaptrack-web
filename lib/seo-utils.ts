@@ -1,11 +1,33 @@
 import { SEOProps, OrganizationSchema, WebsiteSchema } from "@/types/seo";
 
+// Helper function to get base URL (works in both server and client)
+export const getSiteUrl = () => {
+  // Server-side: use environment variable or Vercel's automatic URL
+  if (typeof window === 'undefined') {
+    // Check for explicit site URL first
+    if (process.env.NEXT_PUBLIC_SITE_URL) {
+      return process.env.NEXT_PUBLIC_SITE_URL;
+    }
+    // Use Vercel's automatic URL if available (includes protocol)
+    if (process.env.VERCEL_URL) {
+      return `https://${process.env.VERCEL_URL}`;
+    }
+    // Default to Vercel deployment domain
+    return 'https://snaptrack-web.vercel.app';
+  }
+  // Client-side: use current origin
+  return window.location.origin;
+};
+
+// Default base URL for static initialization
+const DEFAULT_BASE_URL = 'https://snaptrack-web.vercel.app';
+
 export const DEFAULT_SEO: SEOProps = {
   title: "SnapTrack - Food Truck Inventory Management & Waste Prevention",
   description:
     "Stop throwing money in the trash. SnapTrack uses computer vision to scan handwritten expiration dates, track inventory, and prevent food waste for food trucks and small kitchens. Guaranteed ROI in one week.",
-  canonical: "https://snaptrack.io",
-  ogImage: "https://snaptrack.io/og-image.jpg",
+  canonical: DEFAULT_BASE_URL,
+  ogImage: `${DEFAULT_BASE_URL}/og-image.jpg`,
   ogType: "website",
   twitterCard: "summary_large_image",
   keywords: [
@@ -22,10 +44,14 @@ export const DEFAULT_SEO: SEOProps = {
 
 export const SITE_CONFIG = {
   name: "SnapTrack",
-  url: "https://snaptrack.io",
+  get url() {
+    return getSiteUrl();
+  },
   description:
     "Computer vision inventory scanner for food trucks and small kitchens that eliminates food waste by automatically reading handwritten expiration dates.",
-  logo: "https://snaptrack.io/logo.png",
+  get logo() {
+    return `${getSiteUrl()}/logo.png`;
+  },
   email: "support@snaptrack.io",
 };
 
